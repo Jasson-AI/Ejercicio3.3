@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import android.os.Handler;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnGrabar, btnGuardar, btnCancelar;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper = new AudioDbHelper(this);
         recordingsList = dbHelper.getAllRecordings();
+        Log.d("MainActivity", "btnGrabar: " + btnGrabar);
         adapter = new RecordingAdapter(recordingsList, new RecordingAdapter.OnItemActionListener() {
             @Override
             public void onPlay(AudioRecording rec) {
@@ -86,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private void startRecording() {
         // Solicita permisos si es necesario
         if (!hasAllPermissions()) {
+            Toast.makeText(this, "Faltan permisos", Toast.LENGTH_SHORT).show();
             requestPermissions();
             return;
         }
