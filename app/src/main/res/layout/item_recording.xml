@@ -1,0 +1,94 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp">
+
+        <ImageView
+            android:id="@+id/imgNota"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_nota" />
+
+        <TextView
+            android:id="@+id/txtItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/imgNota"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="4dp"/>
+
+        <LinearLayout
+            android:id="@+id/layoutInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/txtItemName"
+            android:layout_toEndOf="@id/imgNota"
+            android:layout_marginStart="10dp">
+
+            <ImageView
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:src="@drawable/ic_time"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:id="@+id/txtItemDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textSize="14sp"
+                android:layout_marginEnd="14dp"/>
+
+            <ImageView
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:src="@drawable/ic_calendar"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:id="@+id/txtItemDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dd/MM/yyyy"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnItemPlay"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_play"
+            android:contentDescription="Reproducir"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            app:tint="#000" />
+
+        <ImageButton
+            android:id="@+id/btnItemDelete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_delete"
+            android:contentDescription="Eliminar"
+            android:layout_toStartOf="@id/btnItemPlay"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            app:tint="#000" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
