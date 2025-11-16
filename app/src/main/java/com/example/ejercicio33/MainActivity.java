@@ -88,11 +88,11 @@ public class MainActivity extends AppCompatActivity {
     }
     private void startRecording() {
         // Solicita permisos si es necesario
-        if (!hasAllPermissions()) {
-            Toast.makeText(this, "Faltan permisos", Toast.LENGTH_SHORT).show();
-            requestPermissions();
+        if (!hasAudioPermission()) {
+            requestAudioPermission();
             return;
         }
+
         tempFilePath = getExternalFilesDir(null) + "/temp_rec.m4a";
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -176,14 +176,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     // Métodos de permisos:
-    private boolean hasAllPermissions() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    private boolean hasAudioPermission() {
+        return ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED;
     }
-    private void requestPermissions() {
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                100);
+
+    private void requestAudioPermission() {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{ Manifest.permission.RECORD_AUDIO },
+                100
+        );
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 100) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permiso concedido", Toast.LENGTH_SHORT).show();
+                startRecording(); // Intenta grabar de nuevo
+            } else {
+                Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }
